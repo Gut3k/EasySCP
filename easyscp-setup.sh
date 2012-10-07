@@ -46,7 +46,12 @@ do
         Auswahl="OpenSuse"
     fi
 
-    if [ "$Name" = "4" ] || [ "$Name" = "Ubuntu" ]; then
+    if [ "$Name" = "4" ] || [ "$Name" = "OracleLinux" ]; then
+        Auswahl="OracleLinux"
+    fi
+
+
+    if [ "$Name" = "5" ] || [ "$Name" = "Ubuntu" ]; then
         Auswahl="Ubuntu"
     fi
 
@@ -87,6 +92,35 @@ do
 	    ;;
 	OpenSuse)
 	    echo "Using OpenSuse. Please wait."
+	    break
+	    ;;
+	OracleLinux)
+	    echo "Using Oracle Linux. Please wait."
+	    make -f Makefile.oracle install > /dev/null
+	    rm -rf /var/www/ > /dev/null
+	    cp -R /tmp/easyscp/* / > /dev/null
+	    echo -n "OracleLinux" > /etc/easyscp/OS
+	    chmod 0777 /var/www/setup/theme/templates_c/
+	    service httpd restart
+	    while :
+	    do
+		read -p "Start setup [Y/N]?" Setup
+		case "$Setup" in
+		    [Yy])
+			#echo "ja"
+			cd /var/www/easyscp/engine/setup
+			perl easyscp-setup
+			break
+			;;
+		    [Nn])
+			#echo "nein"
+			break
+			;;
+		    *)
+			echo "Wrong selection"
+			;;
+		esac
+	    done
 	    break
 	    ;;
 	Ubuntu)
