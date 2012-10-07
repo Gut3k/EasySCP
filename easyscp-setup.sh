@@ -28,7 +28,8 @@ clear
 echo "1 = CentOS"
 echo "2 = Debian"
 echo "3 = OpenSuse"
-echo "4 = Ubuntu"
+echo "4 = Oracle Linux"
+echo "5 = Ubuntu"
 
 while :
 do
